@@ -121,38 +121,16 @@ $(function () {
     });
 });
 
-/*
-css記述
 
-.sample {
-    transform: translateY(30px);
-    opacity: 0;
-    visibility: hidden;
-    transition: transform 1.5s, opacity 1.5s, visibility 1.5s;
-}
+/* toggle */
 
-.is-fadein {
-    transform: translateX(0);
-    opacity: 1;
-    visibility: visible;
-}
-
-@-webkit-keyframes zoomUp {
-    0% {
-    transform: scale(1);
-    }
-    100% {
-    transform: translateY(-20vh);
-    }
-}
-
-@keyframes zoomUp {
-    0% {
-    transform: scale(1);
-    }
-    100% {
-    transform: translateY(-20vh);
-    }
-}
-
-*/
+$(function () {
+	$('.sample').on('click', function () {
+		$(this).next().slideToggle();
+		if ($(this).hasClass('show')) {
+			$(this).removeClass('show');
+		} else {
+			$(this).addClass('show');
+		}
+	});
+});
