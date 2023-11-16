@@ -134,3 +134,18 @@ $(function () {
 		}
 	});
 });
+
+/* フッダーでフェードアウト */
+
+window.onscroll = function () {
+    var check = window.pageYOffset;       //現在のスクロール地点
+    var docHeight = $(document).height();   //ドキュメントの高さ
+    var dispHeight = $(window).height();    //表示領域の高さ
+
+    if (check > docHeight - dispHeight - 50) {   //判別式　500はフッターからの距離です（ここはサイトのフッターに合わせて変更しましょう）
+        $('.sample').fadeOut(600);	//1000 はフェードアウトの速度です。調整可
+
+    } else {
+        $('.sample').fadeIn(600);	//1000 はフェードインの速度です。調整可
+    }
+};
