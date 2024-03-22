@@ -81,6 +81,20 @@ $(function () {
     });
 });
 
+// headerの高さを考慮
+$(function () {
+    $('a[href^="#"]').click(function () {
+        var speed = 500;
+        var adjust = $('header').height();
+        var href = $(this).attr("href");
+        var target = $(href == "#" || href == "" ? 'html' : href);
+        var position = target.offset().top - adjust;
+        $('body,html').animate({ scrollTop: position }, speed, 'swing');
+        return false;
+    });
+
+});
+
 //slick
 $(function () {
     $('.sample').slick({
@@ -125,14 +139,14 @@ $(function () {
 /* toggle */
 
 $(function () {
-	$('.sample').on('click', function () {
-		$(this).next().slideToggle();
-		if ($(this).hasClass('show')) {
-			$(this).removeClass('show');
-		} else {
-			$(this).addClass('show');
-		}
-	});
+    $('.sample').on('click', function () {
+        $(this).next().slideToggle();
+        if ($(this).hasClass('show')) {
+            $(this).removeClass('show');
+        } else {
+            $(this).addClass('show');
+        }
+    });
 });
 
 /* フッダーでフェードアウト */
@@ -149,3 +163,32 @@ window.onscroll = function () {
         $('.sample').fadeIn(600);	//1000 はフェードインの速度です。調整可
     }
 };
+
+/* 動画が終ったらフェードイン　要素フェードイン */
+
+$(document).ready(function () {
+    $(function () {
+        const opVideo = $('#opvSp').get(0);
+        $('#opv-wrapSp').fadeIn(1000);
+
+        // 確認用
+        console.log('default:', opVideo.currentTime);
+
+        opVideo.currentTime = 0;
+        let playTime = 6;
+        playTime = (playTime - opVideo.currentTime) * 1000 - 1000;
+
+        // 確認用
+        opVideo.addEventListener('timeupdate', function () {
+            console.log('time:', opVideo.currentTime);
+        });
+
+        setTimeout(function () {
+            $('#opv-wrapSp').fadeOut(1000, function () {
+                $('.is-show').css('opacity', 1);/* is-showは予めopasityを0にする */
+                $('.is-show').css('transition', '0.5s');
+            });
+        }, playTime);
+
+    });
+});
